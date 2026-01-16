@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@theme {
+  /* Editorial color palette */
+  --color-background: #faf8f5;
+  --color-foreground: #1a1a1a;
+  --color-muted: #6b6b6b;
+
+  /* Editorial typography */
+  --font-family-serif: "Crimson Pro", Georgia, serif;
+  --font-family-sans: Inter, system-ui, sans-serif;
+
+  /* Editorial type scale - refined for tighter rhythm */
+  --font-size-display: 4.5rem;
+  --font-size-display--line-height: 1.05;
+  --font-size-display--letter-spacing: -0.025em;
+
+  --font-size-headline: 3rem;
+  --font-size-headline--line-height: 1.1;
+  --font-size-headline--letter-spacing: -0.015em;
+
+  --font-size-subhead: 1.375rem;
+  --font-size-subhead--line-height: 1.45;
+
+  --font-size-body: 1.125rem;
+  --font-size-body--line-height: 1.65;
+
+  --font-size-small: 0.8125rem;
+  --font-size-small--line-height: 1.5;
+  --font-size-small--letter-spacing: 0.015em;
+
+  /* Generous spacing - refined for better rhythm */
+  --spacing-section: 14rem;
+  --spacing-section-sm: 10rem;
+}
+
+/* Reset with editorial intent */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-family-sans);
+}
+
+/* Respect motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Editorial Typography Classes */
+.text-display {
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-display);
+  line-height: var(--font-size-display--line-height);
+  letter-spacing: var(--font-size-display--letter-spacing);
+  font-weight: 400;
+}
+
+.text-headline {
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-headline);
+  line-height: var(--font-size-headline--line-height);
+  letter-spacing: var(--font-size-headline--letter-spacing);
+  font-weight: 400;
+}
+
+.text-subhead {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-subhead);
+  line-height: var(--font-size-subhead--line-height);
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+.text-body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-body);
+  line-height: var(--font-size-body--line-height);
+  font-weight: 400;
+}
+
+.text-small {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-small);
+  line-height: var(--font-size-small--line-height);
+  letter-spacing: var(--font-size-small--letter-spacing);
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+/* Section wrapper - future GSAP timeline container */
+.story-section {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--spacing-section);
+  padding-bottom: var(--spacing-section);
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Content container - maintains editorial max-width */
+.story-content {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* Mobile refinements */
+@media (max-width: 768px) {
+  .text-display {
+    font-size: 2.5rem;
+    line-height: 1.1;
+  }
+  
+  .text-headline {
+    font-size: 2rem;
+    line-height: 1.15;
+  }
+  
+  .text-subhead {
+    font-size: 1.125rem;
+  }
+  
+  .story-section {
+    padding-top: var(--spacing-section-sm);
+    padding-bottom: var(--spacing-section-sm);
+  }
+}
