@@ -31,7 +31,39 @@ export function Act1Lock() {
     if (!sectionRef.current || prefersReducedMotion()) return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
+      // Initial entrance animation (on page load)
+      const entranceTl = gsap.timeline({
+        delay: 0.3,
+      });
+
+      // Lock draws in on initial load
+      const strokes = lockRef.current?.querySelectorAll("path, rect, circle, line") || [];
+      entranceTl.from(strokes, {
+        strokeDashoffset: 1000,
+        strokeDasharray: 1000,
+        opacity: 0,
+        duration: 2,
+        ease: ease.draw,
+        stagger: 0.08,
+      }, 0);
+
+      // Headline fades in
+      entranceTl.from(headlineRef.current, {
+        opacity: 0,
+        y: 15,
+        duration: 1.2,
+        ease: ease.emerge,
+      }, 0.5);
+
+      // Subline fades in
+      entranceTl.from(sublineRef.current, {
+        opacity: 0,
+        duration: 1,
+        ease: ease.emerge,
+      }, 0.8);
+
+      // Scroll-triggered refinement
+      const scrollTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 60%",
@@ -40,22 +72,12 @@ export function Act1Lock() {
         },
       });
 
-      // Lock SVG strokes draw in
-      tl.from(lockRef.current?.querySelectorAll("path, rect, circle, line") || [], {
-        strokeDashoffset: 1000,
-        strokeDasharray: 1000,
-        duration: duration.draw,
-        ease: ease.draw,
-        stagger: 0.05,
-      }, 0);
-
-      // Headline emerges
-      tl.from(headlineRef.current, {
-        opacity: 0,
-        y: 10,
-        duration: duration.slow,
-        ease: ease.emerge,
-      }, 0.3);
+      scrollTl.to(lockRef.current, {
+        opacity: 0.6,
+        scale: 1.05,
+        duration: duration.medium,
+        ease: ease.calm,
+      });
 
     }, sectionRef);
 

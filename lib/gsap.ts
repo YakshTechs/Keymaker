@@ -69,10 +69,18 @@ export const initGSAP = () => {
   ScrollTrigger.config({
     autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
     limitCallbacks: true,  // Performance: limit callback frequency
+    ignoreMobileResize: true, // Prevent issues on mobile address bar hide/show
   });
 
   // Normalize scroll behavior
   ScrollTrigger.normalizeScroll(false);
+
+  // Smooth scroll refresh after fonts load
+  if (document.fonts) {
+    document.fonts.ready.then(() => {
+      ScrollTrigger.refresh();
+    });
+  }
 };
 
 /**

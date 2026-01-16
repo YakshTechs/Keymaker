@@ -42,12 +42,20 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-family-sans);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Smooth loading */
+.bg-background {
+  background-color: var(--color-background);
 }
 
 /* Respect motion preferences */

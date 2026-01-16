@@ -32,15 +32,17 @@ export function Act2Complexity() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 55%",
-          end: "center 35%",
+          start: "top 60%",
+          end: "center 40%",
           scrub: 1.2,
+          anticipatePin: 1,
         },
       });
 
-      // Headline only
+      // Headline emerges
       tl.from(headlineRef.current, {
         opacity: 0,
+        y: 10,
         duration: duration.medium,
         ease: ease.emerge,
       }, 0);
@@ -49,11 +51,12 @@ export function Act2Complexity() {
       const lines = linesRef.current?.querySelectorAll("line") || [];
       tl.from(lines, {
         opacity: 0,
-        x: (i) => (i % 2 === 0 ? -5 : 5),
+        scaleX: 0.8,
+        x: (i) => (i % 2 === 0 ? -8 : 8),
         duration: duration.slow,
         ease: ease.calm,
-        stagger: 0.1,
-      }, 0.15);
+        stagger: 0.12,
+      }, 0.2);
 
     }, sectionRef);
 

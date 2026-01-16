@@ -36,9 +36,10 @@ export function Act5Open() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 45%",
-          end: "center 25%",
-          scrub: 0.5,
+          start: "top 50%",
+          end: "center 30%",
+          scrub: 0.8,
+          anticipatePin: 1,
           onEnter: () => {
             // Mark as unlocked when user reaches this section
             if (!isUnlocked) {
@@ -56,11 +57,17 @@ export function Act5Open() {
           ease: ease.emerge,
         }, 0);
 
-        tl.from(bodyRef.current, {
+        tl.from(sublineRef.current, {
           opacity: 0.5,
           duration: duration.fast,
           ease: ease.emerge,
         }, 0.05);
+
+        tl.from(bodyRef.current, {
+          opacity: 0.5,
+          duration: duration.fast,
+          ease: ease.emerge,
+        }, 0.1);
 
         // Key already visible
         gsap.set(keyRef.current, { opacity: 0.5, scale: 1 });
@@ -69,23 +76,30 @@ export function Act5Open() {
         // First time - full animation
         tl.from(headlineRef.current, {
           opacity: 0,
-          y: 5,
+          y: 8,
           duration: duration.medium,
           ease: ease.emerge,
         }, 0);
 
-        tl.from(bodyRef.current, {
+        tl.from(sublineRef.current, {
           opacity: 0,
           duration: duration.medium,
           ease: ease.emerge,
-        }, 0.1);
+        }, 0.15);
+
+        tl.from(bodyRef.current, {
+          opacity: 0,
+          y: 5,
+          duration: duration.medium,
+          ease: ease.emerge,
+        }, 0.25);
 
         tl.from(keyRef.current, {
           opacity: 0,
-          scale: 0.95,
+          scale: 0.9,
           duration: duration.medium,
           ease: ease.resolve,
-        }, 0.25);
+        }, 0.4);
       }
 
     }, sectionRef);
