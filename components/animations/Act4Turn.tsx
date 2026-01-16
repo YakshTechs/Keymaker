@@ -2,30 +2,18 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { LockSvg } from "@/components/LockSvg";
-import { KeySvg } from "@/components/KeySvg";
-import { prefersReducedMotion, ease, duration } from "@/lib/gsap";
+import { prefersReducedMotion, ease } from "@/lib/gsap";
 
 /**
  * ACT IV: THE TURN
  * 
- * Narrative intent: Inevitability, connection, resolution
- * 
- * Animation: Scroll-driven key turning and unlocking
- * - Key and lock appear
- * - Key moves toward lock
- * - Key rotates 180 degrees
- * - Key inserts into lock
- * - Lock opens
- * 
- * Teaching: The inevitable moment of understanding.
+ * Lock appears and opens
  */
 
 export function Act4Turn() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
-  const keyRef = useRef<HTMLDivElement>(null);
   const lockRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,7 +24,7 @@ export function Act4Turn() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
-          end: "bottom 20%",
+          end: "center center",
           scrub: 1.5,
           anticipatePin: 1,
         },
@@ -56,38 +44,7 @@ export function Act4Turn() {
         scale: 0.95,
         duration: 0.4,
         ease: ease.calm,
-      }, 0.1);
-
-      // Key appears from the right
-      tl.from(keyRef.current, {
-        opacity: 0,
-        scale: 0.95,
-        x: 50,
-        duration: 0.4,
-        ease: ease.calm,
       }, 0.2);
-
-      // Key moves toward lock
-      tl.to(keyRef.current, {
-        x: -30,
-        duration: 0.5,
-        ease: ease.calm,
-      }, 0.5);
-
-      // Key rotates 180 degrees
-      tl.to(keyRef.current, {
-        rotation: 180,
-        duration: 0.6,
-        ease: ease.resolve,
-      }, 0.9);
-
-      // Key moves into lock (insertion)
-      tl.to(keyRef.current, {
-        x: -60,
-        scale: 0.92,
-        duration: 0.5,
-        ease: ease.resolve,
-      }, 1.4);
 
       // Lock opens - shackle fades and moves
       const shackle = lockRef.current?.querySelector("path");
@@ -97,7 +54,7 @@ export function Act4Turn() {
           y: -10,
           duration: 0.4,
           ease: ease.resolve,
-        }, 1.8);
+        }, 0.8);
       }
 
       // Lock body subtle scale
@@ -105,14 +62,7 @@ export function Act4Turn() {
         scale: 1.02,
         duration: 0.3,
         ease: ease.resolve,
-      }, 1.8);
-
-      // Key fades slightly
-      tl.to(keyRef.current, {
-        opacity: 0.6,
-        duration: 0.3,
-        ease: ease.resolve,
-      }, 1.9);
+      }, 0.8);
 
     }, sectionRef);
 
@@ -130,21 +80,13 @@ export function Act4Turn() {
         One turn changes everything.
       </h2>
 
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-16 lg:gap-32 mt-16 relative">
+      <div className="flex items-center justify-center mt-16">
         <div 
           ref={lockRef} 
           className="w-48 text-foreground opacity-80"
           style={{ willChange: "opacity, transform" }}
         >
           <LockSvg variant="complete" />
-        </div>
-        
-        <div 
-          ref={keyRef} 
-          className="w-64 text-foreground opacity-80"
-          style={{ willChange: "transform" }}
-        >
-          <KeySvg variant="complete" />
         </div>
       </div>
     </div>

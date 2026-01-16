@@ -3,23 +3,12 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { prefersReducedMotion, ease } from "@/lib/gsap";
+import { prefersReducedMotion } from "@/lib/gsap";
 
 /**
  * ACT III: DISCOVERY
  * 
- * Narrative intent: Progressive revelation through scroll
- * 
- * Visual: Key builds progressively as you scroll through zones
- * - Zone 1 (10-20%): Headline appears
- * - Zone 2 (20-30%): Subline appears
- * - Zone 3 (30-40%): Noise/complexity appears
- * - Zone 4 (40-50%): Key head (circles) draws
- * - Zone 5 (50-60%): Key shaft draws
- * - Zone 6 (60-70%): Key teeth draw
- * - Zone 7 (70%+): Noise fades, key remains
- * 
- * Teaching: Understanding reveals itself gradually through patience.
+ * Key originates (draws) progressively on top of noise pattern
  */
 
 export function Act3Discovery() {
@@ -27,19 +16,22 @@ export function Act3Discovery() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const sublineRef = useRef<HTMLParagraphElement>(null);
   const noiseGroupRef = useRef<SVGGElement>(null);
+  const hintRef = useRef<HTMLParagraphElement>(null);
+  
+  // Key refs
   const keyHeadOuterRef = useRef<SVGCircleElement>(null);
   const keyHeadInnerRef = useRef<SVGCircleElement>(null);
   const keyShaftRef = useRef<SVGLineElement>(null);
   const keyTooth1Ref = useRef<SVGLineElement>(null);
   const keyTooth2Ref = useRef<SVGLineElement>(null);
   const keyTooth3Ref = useRef<SVGLineElement>(null);
-  const hintRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     if (!sectionRef.current || prefersReducedMotion()) return;
 
     const ctx = gsap.context(() => {
-      // ZONE 1: Headline (10-20% of section height)
+      
+      // Headline
       gsap.fromTo(
         headlineRef.current,
         { opacity: 0, y: 30 },
@@ -55,7 +47,7 @@ export function Act3Discovery() {
         }
       );
 
-      // ZONE 2: Subline (20-30%)
+      // Subline
       gsap.fromTo(
         sublineRef.current,
         { opacity: 0, y: 20 },
@@ -71,7 +63,7 @@ export function Act3Discovery() {
         }
       );
 
-      // ZONE 3: Noise appears (30-40%)
+      // Noise appears
       gsap.fromTo(
         noiseGroupRef.current,
         { opacity: 0 },
@@ -86,143 +78,113 @@ export function Act3Discovery() {
         }
       );
 
-      // ZONE 4: Key head outer circle draws (40-50%)
-      const outerLength = keyHeadOuterRef.current?.getTotalLength() || 157;
+      // KEY ORIGINATES - draws stroke by stroke
+      // Outer circle
+      const outerLength = keyHeadOuterRef.current?.getTotalLength() || 220;
       gsap.fromTo(
         keyHeadOuterRef.current,
-        { 
-          strokeDasharray: outerLength,
-          strokeDashoffset: outerLength,
-          opacity: 0,
-        },
+        { strokeDasharray: outerLength, strokeDashoffset: outerLength },
         {
           strokeDashoffset: 0,
-          opacity: 1,
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 50%",
-            end: "top 40%",
-            scrub: 1,
+            start: "top 40%",
+            end: "top 30%",
+            scrub: 2,
           },
         }
       );
 
-      // ZONE 4.5: Key head inner circle draws (45-55%)
-      const innerLength = keyHeadInnerRef.current?.getTotalLength() || 94;
+      // Inner circle
+      const innerLength = keyHeadInnerRef.current?.getTotalLength() || 126;
       gsap.fromTo(
         keyHeadInnerRef.current,
-        { 
-          strokeDasharray: innerLength,
-          strokeDashoffset: innerLength,
-          opacity: 0,
-        },
+        { strokeDasharray: innerLength, strokeDashoffset: innerLength },
         {
           strokeDashoffset: 0,
-          opacity: 1,
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 45%",
-            end: "top 35%",
-            scrub: 1,
+            start: "top 30%",
+            end: "top 22%",
+            scrub: 2,
           },
         }
       );
 
-      // ZONE 5: Key shaft draws (50-60%)
-      const shaftLength = keyShaftRef.current?.getTotalLength() || 155;
+      // Shaft
+      const shaftLength = keyShaftRef.current?.getTotalLength() || 145;
       gsap.fromTo(
         keyShaftRef.current,
-        { 
-          strokeDasharray: shaftLength,
-          strokeDashoffset: shaftLength,
-          opacity: 0,
-        },
+        { strokeDasharray: shaftLength, strokeDashoffset: shaftLength },
         {
           strokeDashoffset: 0,
-          opacity: 1,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 35%",
-            end: "top 25%",
-            scrub: 1,
-          },
-        }
-      );
-
-      // ZONE 6: Key teeth draw (60-70%)
-      const tooth1Length = keyTooth1Ref.current?.getTotalLength() || 8;
-      const tooth2Length = keyTooth2Ref.current?.getTotalLength() || 8;
-      const tooth3Length = keyTooth3Ref.current?.getTotalLength() || 12;
-
-      gsap.fromTo(
-        keyTooth1Ref.current,
-        { 
-          strokeDasharray: tooth1Length,
-          strokeDashoffset: tooth1Length,
-          opacity: 0,
-        },
-        {
-          strokeDashoffset: 0,
-          opacity: 1,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 25%",
-            end: "top 20%",
-            scrub: 1,
-          },
-        }
-      );
-
-      gsap.fromTo(
-        keyTooth2Ref.current,
-        { 
-          strokeDasharray: tooth2Length,
-          strokeDashoffset: tooth2Length,
-          opacity: 0,
-        },
-        {
-          strokeDashoffset: 0,
-          opacity: 1,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 22%",
-            end: "top 17%",
-            scrub: 1,
+            end: "top 12%",
+            scrub: 2,
           },
         }
       );
 
+      // Teeth - one by one
+      const tooth1Length = keyTooth1Ref.current?.getTotalLength() || 10;
       gsap.fromTo(
-        keyTooth3Ref.current,
-        { 
-          strokeDasharray: tooth3Length,
-          strokeDashoffset: tooth3Length,
-          opacity: 0,
-        },
+        keyTooth1Ref.current,
+        { strokeDasharray: tooth1Length, strokeDashoffset: tooth1Length },
         {
           strokeDashoffset: 0,
-          opacity: 1,
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 19%",
-            end: "top 14%",
-            scrub: 1,
+            start: "top 12%",
+            end: "top 9%",
+            scrub: 2,
           },
         }
       );
 
-      // ZONE 7: Noise fades out, key remains (70%+)
+      const tooth2Length = keyTooth2Ref.current?.getTotalLength() || 10;
+      gsap.fromTo(
+        keyTooth2Ref.current,
+        { strokeDasharray: tooth2Length, strokeDashoffset: tooth2Length },
+        {
+          strokeDashoffset: 0,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 9%",
+            end: "top 6%",
+            scrub: 2,
+          },
+        }
+      );
+
+      const tooth3Length = keyTooth3Ref.current?.getTotalLength() || 15;
+      gsap.fromTo(
+        keyTooth3Ref.current,
+        { strokeDasharray: tooth3Length, strokeDashoffset: tooth3Length },
+        {
+          strokeDashoffset: 0,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 6%",
+            end: "top 3%",
+            scrub: 2,
+          },
+        }
+      );
+
+      // Noise fades as key completes
       gsap.to(noiseGroupRef.current, {
-        opacity: 0.05,
+        opacity: 0.1,
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 14%",
-          end: "top 5%",
+          start: "top 10%",
+          end: "top 0%",
           scrub: 1,
         },
       });
 
-      // Hint text appears at the end
+      // Hint text
       gsap.fromTo(
         hintRef.current,
         { opacity: 0 },
@@ -230,8 +192,8 @@ export function Act3Discovery() {
           opacity: 0.4,
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 10%",
-            end: "top 5%",
+            start: "top 3%",
+            end: "top 0%",
             scrub: 1,
           },
         }
@@ -243,7 +205,7 @@ export function Act3Discovery() {
   }, []);
 
   return (
-    <div ref={sectionRef} className="flex flex-col items-center text-center space-y-16 min-h-[200vh]">
+    <div ref={sectionRef} className="relative flex flex-col items-center text-center space-y-16 min-h-[200vh]">
       <h2 
         ref={headlineRef}
         id="act-3-discovery-heading" 
@@ -255,43 +217,45 @@ export function Act3Discovery() {
         It removes.
       </p>
 
-      <div className="mt-24 w-full max-w-md text-foreground sticky top-1/3">
+      {/* Combined SVG - Noise pattern + Key */}
+      <div className="mt-24 w-full max-w-2xl text-foreground">
         <svg
-          viewBox="0 0 400 200"
+          viewBox="0 0 600 300"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
           className="w-full h-auto"
         >
-          {/* Noise layer - complex overlapping shapes */}
+          {/* Noise layer - behind key */}
           <g ref={noiseGroupRef}>
-            {/* Random lines creating visual noise */}
-            <line x1="50" y1="60" x2="350" y2="80" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-            <line x1="80" y1="100" x2="320" y2="90" stroke="currentColor" strokeWidth="1.5" opacity="0.5" />
-            <line x1="100" y1="70" x2="300" y2="130" stroke="currentColor" strokeWidth="1" opacity="0.7" />
-            <line x1="60" y1="120" x2="340" y2="110" stroke="currentColor" strokeWidth="1" opacity="0.4" />
-            <line x1="120" y1="85" x2="280" y2="115" stroke="currentColor" strokeWidth="1.5" opacity="0.6" />
-            <line x1="90" y1="140" x2="310" y2="70" stroke="currentColor" strokeWidth="1" opacity="0.5" />
-            <line x1="70" y1="95" x2="330" y2="125" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-            <line x1="110" y1="110" x2="290" y2="95" stroke="currentColor" strokeWidth="1.5" opacity="0.4" />
+            <line x1="50" y1="60" x2="550" y2="80" stroke="currentColor" strokeWidth="1" opacity="0.6" />
+            <line x1="80" y1="120" x2="520" y2="110" stroke="currentColor" strokeWidth="1.5" opacity="0.5" />
+            <line x1="100" y1="90" x2="500" y2="180" stroke="currentColor" strokeWidth="1" opacity="0.7" />
+            <line x1="60" y1="160" x2="540" y2="150" stroke="currentColor" strokeWidth="1" opacity="0.4" />
+            <line x1="120" y1="100" x2="480" y2="140" stroke="currentColor" strokeWidth="1.5" opacity="0.6" />
+            <line x1="90" y1="200" x2="510" y2="100" stroke="currentColor" strokeWidth="1" opacity="0.5" />
+            <line x1="70" y1="130" x2="530" y2="170" stroke="currentColor" strokeWidth="1" opacity="0.6" />
+            <line x1="110" y1="150" x2="490" y2="130" stroke="currentColor" strokeWidth="1.5" opacity="0.4" />
+            <line x1="140" y1="70" x2="460" y2="220" stroke="currentColor" strokeWidth="1" opacity="0.5" />
+            <line x1="150" y1="190" x2="450" y2="90" stroke="currentColor" strokeWidth="1" opacity="0.6" />
             
-            {/* Scattered circles */}
-            <circle cx="150" cy="90" r="8" stroke="currentColor" strokeWidth="1" opacity="0.3" />
-            <circle cx="250" cy="110" r="12" stroke="currentColor" strokeWidth="1" opacity="0.4" />
-            <circle cx="200" cy="130" r="6" stroke="currentColor" strokeWidth="1" opacity="0.5" />
+            <circle cx="200" cy="120" r="8" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+            <circle cx="400" cy="160" r="12" stroke="currentColor" strokeWidth="1" opacity="0.4" />
+            <circle cx="300" cy="200" r="6" stroke="currentColor" strokeWidth="1" opacity="0.5" />
+            <circle cx="350" cy="100" r="10" stroke="currentColor" strokeWidth="1" opacity="0.3" />
             
-            {/* Diagonal crosses */}
-            <path d="M 180 75 L 220 115 M 220 75 L 180 115" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+            <path d="M 250 100 L 290 140 M 290 100 L 250 140" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+            <path d="M 380 180 L 420 220 M 420 180 L 380 220" stroke="currentColor" strokeWidth="1" opacity="0.3" />
           </g>
 
-          {/* Key layer - builds progressively */}
-          <g>
+          {/* Key - originates on top of noise */}
+          <g transform="translate(160, 90)">
             {/* Key head - outer circle */}
             <circle
               ref={keyHeadOuterRef}
-              cx="120"
-              cy="100"
-              r="25"
+              cx="60"
+              cy="60"
+              r="35"
               stroke="currentColor"
               strokeWidth="2.5"
               fill="none"
@@ -300,9 +264,9 @@ export function Act3Discovery() {
             {/* Key head - inner circle */}
             <circle
               ref={keyHeadInnerRef}
-              cx="120"
-              cy="100"
-              r="15"
+              cx="60"
+              cy="60"
+              r="20"
               stroke="currentColor"
               strokeWidth="2"
               fill="none"
@@ -311,10 +275,10 @@ export function Act3Discovery() {
             {/* Key shaft */}
             <line
               ref={keyShaftRef}
-              x1="145"
-              y1="100"
-              x2="300"
-              y2="100"
+              x1="95"
+              y1="60"
+              x2="240"
+              y2="60"
               stroke="currentColor"
               strokeWidth="2.5"
             />
@@ -322,28 +286,28 @@ export function Act3Discovery() {
             {/* Key teeth */}
             <line 
               ref={keyTooth1Ref}
-              x1="260" 
-              y1="92" 
-              x2="260" 
-              y2="100" 
+              x1="200" 
+              y1="50" 
+              x2="200" 
+              y2="60" 
               stroke="currentColor" 
               strokeWidth="2.5" 
             />
             <line 
               ref={keyTooth2Ref}
-              x1="275" 
-              y1="92" 
-              x2="275" 
-              y2="100" 
+              x1="215" 
+              y1="50" 
+              x2="215" 
+              y2="60" 
               stroke="currentColor" 
               strokeWidth="2.5" 
             />
             <line 
               ref={keyTooth3Ref}
-              x1="290" 
-              y1="88" 
-              x2="290" 
-              y2="100" 
+              x1="230" 
+              y1="45" 
+              x2="230" 
+              y2="60" 
               stroke="currentColor" 
               strokeWidth="2.5" 
             />

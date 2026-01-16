@@ -14,17 +14,6 @@ import { initGSAP, cleanupGSAP } from "@/lib/gsap";
  * 
  * Five-act narrative structure delivered through scroll.
  * Each section is a complete visual and narrative beat.
- * 
- * Phase 1: Static foundation with editorial design ✓
- * Phase 2: GSAP scroll-triggered animations ✓
- * Phase 4: Elite interactions ✓
- * 
- * Design principles:
- * - Massive whitespace
- * - Editorial typography
- * - Calm, confident pacing
- * - Museum-quality presentation
- * - Motion that serves meaning
  */
 
 export default function Home() {
@@ -58,31 +47,26 @@ export default function Home() {
       }`}>
         
         {/* ACT I: THE LOCK */}
-        {/* Hook - Establish the problem space */}
         <Section id="act-1-lock">
           <Act1Lock />
         </Section>
 
         {/* ACT II: COMPLEXITY */}
-        {/* Pressure - Build tension through layered understanding */}
         <Section id="act-2-complexity">
           <Act2Complexity />
         </Section>
 
         {/* ACT III: DISCOVERY */}
-        {/* Focus - The turning point, reduction not addition */}
         <Section id="act-3-discovery">
           <Act3Discovery />
         </Section>
 
         {/* ACT IV: THE TURN */}
-        {/* Climax - The moment of connection */}
         <Section id="act-4-turn">
           <Act4Turn />
         </Section>
 
         {/* ACT V: OPEN SYSTEM */}
-        {/* Resolution - Calm confidence, the system is understood */}
         <Section id="act-5-open">
           <Act5Open />
         </Section>
